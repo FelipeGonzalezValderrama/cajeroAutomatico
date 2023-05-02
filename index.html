@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <br><br><br><br>
+    <hr>
+    <div>
+        <h2 class="text-center"> <i class="fa-regular fa-building-columns"></i> Hola bienvenidos al cajero automatico
+            del banco JS <i class="fa-regular fa-building-columns"></i></h2>
+    </div>
+    <hr>
+    <script>
+        // Definir clientes
+        const clientes = [
+            { nombre: "Juan Gonzalez", identificador: "usuario1", clave: "clave1", saldo: 10000 },
+            { nombre: "Marta Perez", identificador: "usuario2", clave: "clave2", saldo: 500000 },
+            { nombre: "Roberto Rojas", identificador: "usuario3", clave: "clave3", saldo: 150000 },
+            { nombre: "Carlos Garcia", identificador: "usuario4", clave: "clave4", saldo: 2000000 },
+            { nombre: "Felipe Gonzalez", identificador: "usuario5", clave: "clave5", saldo: 4500000 }
+        ];
+
+        // ingrese su identificador y clave
+        const identificador = prompt("Ingrese su identificador:");
+        const clave = prompt("Ingrese su clave:");
+
+        // Buscar al cliente validar datos
+        let clienteEncontrado = false;
+        let cliente;
+        for (let i = 0; i < clientes.length; i++) {
+            if (clientes[i].identificador === identificador && clientes[i].clave === clave) {
+                clienteEncontrado = true;
+                cliente = clientes[i];
+            }
+        }
+
+        if (clienteEncontrado) {
+            alert(`Bienvenido(a) ${cliente.nombre}`);
+
+
+            // Mostrar menú y pedir al usuario que seleccione una opción
+            let opcion;
+            while (opcion !== "4") {
+                opcion = prompt("Seleccione una opción:\n1. Depositar\n2. Girar\n3. Ver saldo\n4. Salir");
+
+                switch (opcion) {
+                    case "1":
+                        const cantidadDeposito = Number(prompt("Ingrese el monto que desea depositar"));
+                        depositar(cantidadDeposito);
+                        break;
+                    case "2":
+                        const cantidadGiro = Number(prompt(`Ingrese el monto que desea girar su saldo actual es ${cliente.saldo}`));
+                        girar(cantidadGiro);
+                        break;
+                    case "3":
+                        alert(`Su saldo actual es de ${cliente.saldo}`);
+                        break;
+                    case "4":
+                        alert("Gracias por usar nuestro servicio");
+                        break;
+                    default:
+                        alert("Opción inválida");
+                }
+            }
+        } else {
+            // mensaje de error si el cliente no es encontrado
+            alert("Error: Identificador o clave inválidos, hasta luego!");
+        }
+
+        //funciones
+        //realizar un depósito
+        function depositar(cantidad) {
+            cliente.saldo += cantidad;
+            alert(`Deposito realizado, su saldo actual es de ${cliente.saldo}`);
+        }
+
+        // realizar un giro
+        function girar(cantidad) {
+            if (cantidad <= cliente.saldo) {
+                cliente.saldo -= cantidad;
+                alert(`Giro realizado, Su saldo actual es de ${cliente.saldo}`);
+            } else {
+                alert("Saldo insuficiente, intente otro monto");
+            }
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
